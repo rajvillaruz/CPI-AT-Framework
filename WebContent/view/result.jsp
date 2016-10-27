@@ -1,3 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div style="width: 108px;">
+	<input type="hidden" id="folderName" value="${ folderName }">
+	<button type="submit" class="btn btn-default" id="btnDownload">Download All</button>
+</div>
+<div id="message">
+	
+</div>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-success">
     <div class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -42,3 +51,9 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+$( document ).ready(function() {
+	downloadFiles();
+	
+});
+</script>

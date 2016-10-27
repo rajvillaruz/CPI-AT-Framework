@@ -20,3 +20,18 @@ function executeScript() {
 		
 	});
 };
+
+function downloadFiles() {
+	var folderName = $('#folderName').val();
+	$('#btnDownload').click( function() {
+		$.ajax({
+			url: contextPath + 'MainController?download=all',
+			method: 'POST',
+			data :	folderName,
+		    success: function(result){
+				$('#message').html(result);
+			}
+		});
+		
+	});
+};
