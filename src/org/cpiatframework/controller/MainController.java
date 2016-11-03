@@ -62,7 +62,7 @@ public class MainController extends HttpServlet {
 				BrowserTest browserTest = new BrowserTest(browsers, fileUpload.uploadFile(), ipAddress, project, folderDate);
 				try {
 					crossBrowserResult = browserTest.testcase(filePath);
-					String pdfPath = "C:\\Users\\cpi\\Desktop\\Selenium\\Selenium Udemy Workspace\\CPI-AT-MyCopy\\" + folderName + "\\" + project + "-" + folderDate + ".pdf";
+					String pdfPath = "C:\\Users\\ROCHELLE\\Documents\\Workspace\\SeleniumTraining\\CPI-AT-Framework\\" + project + "-" + folderDate + ".pdf";
 					PDF pdfFile = new PDF(pdfPath, project, qa, crossBrowserResult);
 					pdfFile.writePDF();
 				} catch (EncryptedDocumentException e) {

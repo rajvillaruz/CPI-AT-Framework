@@ -26,7 +26,7 @@ public class ResultController extends HttpServlet {
 		String download = request.getParameter("download");
 		String folderName = request.getParameter("folderName");
 		String name = folderName + ".zip";
-		String path = "C:\\Users\\cpi\\Desktop\\Selenium\\Selenium Udemy Workspace\\CPI-AT-MyCopy\\" + folderName;
+		String path = "C:\\Users\\ROCHELLE\\Documents\\AT-Download\\" + folderName;
 		
 //		File file = new File(path+File.separator+name);
 		File allFiles = new File(path);

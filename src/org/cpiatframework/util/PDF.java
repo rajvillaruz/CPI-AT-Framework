@@ -38,6 +38,7 @@ public class PDF {
 	
 	public void writePDF() throws FileNotFoundException, DocumentException {
 		Date date = new Date();		
+		System.out.println(pdfPath);
 //		String pdfPath = "C:\\Users\\cpi\\Desktop\\Selenium\\Selenium Udemy Workspace\\CPI-AT-MyCopy\\" + project + "-" + folderDate + "\\" + project + "-" + folderDate + ".pdf";
 		Document document = new Document(PageSize.A4, 36, 36, 120, 54);
 		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath)); 
@@ -136,7 +137,7 @@ public class PDF {
 		  public void onEndPage(PdfWriter writer, Document document) {
 		    Rectangle rect = writer.getBoxSize("headerBox");
 		    try {
-		      Image img = Image.getInstance("C:\\Users\\cpi\\Desktop\\Selenium\\Selenium Udemy Workspace\\CPI-AT-MyCopy\\WebContent\\imgs\\cpi_logo.png");
+		      Image img = Image.getInstance("C:\\Users\\ROCHELLE\\Documents\\Automated Testing References\\cpi_logo.png");
 		      img.scaleToFit(100,100);
 		      img.setAbsolutePosition(35,742); 
 		      writer.getDirectContent().addImage(img);
