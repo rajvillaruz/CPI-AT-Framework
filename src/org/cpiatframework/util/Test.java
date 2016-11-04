@@ -103,14 +103,19 @@ public class Test {
 			String[] exp = expected.split(",");
 			Expected eu;
 			int size = exp.length;
-			
 			switch (size){
 			case 2:
 				eu = new Expected(exp[0], exp[1]);
+				eu.setFolderDate(folderDate);
+				eu.setProject(project);
+				eu.setBrowser(browser[0]);
 				result = result + "-" + eu.callMethod();
 				break;
 			case 3:
 				eu = new Expected(exp[0], exp[1], exp[2]);
+				eu.setFolderDate(folderDate);
+				eu.setProject(project);
+				eu.setBrowser(browser[0]);
 				result = result + "-" + eu.callMethod();
 				break;
 			default:

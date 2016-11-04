@@ -1,5 +1,6 @@
 package org.cpiatframework.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,10 +48,12 @@ public class MainController extends HttpServlet {
 		if(action.equals("execute")){
 			boolean isMultipart;
 			isMultipart = ServletFileUpload.isMultipartContent(request);
+			System.out.println(!isMultipart);
 			if( !isMultipart ){
+				System.out.println("isnotmultipart");
 				page = "view/error.jsp";
 			} else {
-				page = "view/result.jsp";
+				
 				String project = request.getParameter("projectName");
 				String qa = request.getParameter("qaName");
 				ipAddress = request.getParameter("ipaddress");
@@ -59,18 +62,23 @@ public class MainController extends HttpServlet {
 				String folderName = project + "-" + folderDate;
 				request.setAttribute("folderName", folderName );
 				Upload fileUpload = new Upload(request, filePath);
-				BrowserTest browserTest = new BrowserTest(browsers, fileUpload.uploadFile(), ipAddress, project, folderDate);
-				try {
-					crossBrowserResult = browserTest.testcase(filePath);
-					String pdfPath = "C:\\Users\\ROCHELLE\\Documents\\Workspace\\SeleniumTraining\\CPI-AT-Framework\\" + project + "-" + folderDate + ".pdf";
-					PDF pdfFile = new PDF(pdfPath, project, qa, crossBrowserResult);
-					pdfFile.writePDF();
-				} catch (EncryptedDocumentException e) {
-					e.printStackTrace();
-				} catch (InvalidFormatException e) {
-					e.printStackTrace();
-				} catch (DocumentException e) {
-					e.printStackTrace();
+				File excelFile = fileUpload.uploadFile();
+				if (excelFile != null) {
+					page = "view/result.jsp";
+					try {
+						BrowserTest browserTest = new BrowserTest(browsers, excelFile, ipAddress, project, folderDate);
+						System.out.println(filePath);
+						crossBrowserResult = browserTest.testcase(filePath);
+						File pdfFile = new File(Constants.PATH_DOWNLOAD + File.separator + folderName + File.separator + project + "-" + folderDate + ".pdf");
+						PDF pdf = new PDF(pdfFile, project, qa, crossBrowserResult);
+						pdf.writePDF();
+					} catch (EncryptedDocumentException e) {
+						e.printStackTrace();
+					} catch (InvalidFormatException e) {
+						e.printStackTrace();
+					} catch (DocumentException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -78,5 +86,6 @@ public class MainController extends HttpServlet {
 		dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}
-
+	
+	
 }

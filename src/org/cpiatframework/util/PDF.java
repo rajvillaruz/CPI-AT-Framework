@@ -1,11 +1,14 @@
 package org.cpiatframework.util;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.google.common.io.Files;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -24,24 +27,24 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDF {
-	private String pdfPath;
+	private File pdfFile;
 	private String project;
 	private String qa;
 	private List<String> crossBrowserResult;
 	
-	public PDF(String pdfPath, String project, String qa, List<String> crossBrowserResult) {
-		this.pdfPath = pdfPath;
+	public PDF(File pdfPath, String project, String qa, List<String> crossBrowserResult) {
+		this.pdfFile = pdfPath;
 		this.project = project;
 		this.qa = qa;
 		this.crossBrowserResult = crossBrowserResult;
 	}
 	
-	public void writePDF() throws FileNotFoundException, DocumentException {
+	public void writePDF() throws DocumentException, IOException {
 		Date date = new Date();		
-		System.out.println(pdfPath);
-//		String pdfPath = "C:\\Users\\cpi\\Desktop\\Selenium\\Selenium Udemy Workspace\\CPI-AT-MyCopy\\" + project + "-" + folderDate + "\\" + project + "-" + folderDate + ".pdf";
 		Document document = new Document(PageSize.A4, 36, 36, 120, 54);
-		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath)); 
+		System.out.println("writing");
+		Files.createParentDirs(pdfFile);
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfFile)); 
 		document.open();
 		//header
 		Rectangle headerBox = new Rectangle(36, 54, 559, 788);
@@ -93,7 +96,7 @@ public class PDF {
 								cFailed.setBackgroundColor(new CMYKColor(0, 41, 33, 0));
 								t.addCell(cFailed);
 							} else {
-								Paragraph c = new Paragraph(cells[i] + " " + project,FontFactory.getFont(FontFactory.TIMES,12, Font.NORMAL, BaseColor.BLACK));
+								Paragraph c = new Paragraph(cells[i] ,FontFactory.getFont(FontFactory.TIMES,12, Font.NORMAL, BaseColor.BLACK));
 								t.addCell(c);
 							}   
 						}

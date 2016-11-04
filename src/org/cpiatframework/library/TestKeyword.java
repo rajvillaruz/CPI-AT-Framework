@@ -26,7 +26,6 @@ public class TestKeyword {
 			System.out.println(ipAddress);
 			System.out.println(browser[2]);
 			if(browser[2].equals(Constants.BROWSER_PROPERTY_CHROME.toString())){
-				System.out.println("firefox");
 				capabilities = DesiredCapabilities.chrome();
 				driver = new RemoteWebDriver(new URL("http://" + ipAddress + "/wd/hub"), capabilities);
 				ExpectedKeyword.driver = driver;
