@@ -26,6 +26,7 @@ public class BrowserTest {
 	}
 	
 	public List<String> testcase(String filePath) throws EncryptedDocumentException, FileNotFoundException, InvalidFormatException, IOException {
+		System.out.println(file.getName());
 		List<String> crossBrowserResult = new ArrayList<String>();
 		System.out.println(browsers.length);
 		for (int i = 0; i < browsers.length; i++) {
