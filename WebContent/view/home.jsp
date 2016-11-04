@@ -18,6 +18,7 @@
 	var contextPath = '${pageContext.request.contextPath}' + '/';
 </script>
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
 <title>Automated Testing</title>
 </head>
 <body>
@@ -57,18 +58,18 @@
 			
 		</div>
 		<div style="width: 108px; margin: auto;">
-			<button type="submit" class="btn btn-default" id="btnExecute">Execute Test</button>
+			<button type="submit" class="btn btn-default" id="btnExecute" data-loading-text="Loading..." autocomplete="off">Execute Test</button>
 		</div>
 		<br/>
 		<div id="results" style="margin-top: 50px; width: 800px; margin: auto;">
-		
+			
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
 $( document ).ready(function() {
 	executeScript();
-	
+	downloadFiles();
 });
 </script>
 </html>

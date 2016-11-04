@@ -17,6 +17,7 @@ function executeScript() {
 		    processData: false,
 		    success: function(result){
 				$('#results').html(result);
+				$('#btnExecute').prop('disabled', false);
 			}
 		});
 	});
