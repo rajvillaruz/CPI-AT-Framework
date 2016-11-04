@@ -1,5 +1,7 @@
 function executeScript() {
 	$('#btnExecute').click( function() {
+		$('#btnExecute').prop('disabled', true);
+		$('#results').html('<div class="loader" style="margin-top: 50px; margin: auto;"></div>');
 		var projectName = $('#txtProjectName').val();
 		var qaName = $('#txtQAName').val();
 		var ip = $('#txtIP').val();
@@ -17,21 +19,21 @@ function executeScript() {
 				$('#results').html(result);
 			}
 		});
-		
 	});
 };
 
-function downloadFiles() {
-	var folderName = $('#folderName').val();
-	$('#btnDownload').click( function() {
-		$.ajax({
-			url: contextPath + 'MainController?download=all',
-			method: 'POST',
-			data :	folderName,
-		    success: function(result){
-				$('#message').html(result);
-			}
-		});
-		
-	});
-};
+//function downloadFiles() {
+//	$('#btnDownload').click( function() {
+//		window.alert("download");
+//		var folderName = $('#folderName').val();
+//		$.ajax({
+//			url: contextPath + 'MainController?download=all',
+//			method: 'GET',
+//			data :	{ folderName	:	foldername},
+//		    success: function(result){
+//				$('#message').html(result);
+//			}
+//		});
+//		
+//	});
+//};

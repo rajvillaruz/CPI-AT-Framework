@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div style="width: 108px;">
 	<input type="hidden" id="folderName" value="${ folderName }">
-	<button type="submit" class="btn btn-default" id="btnDownload">Download All</button>
+	<a href="ResultController?download=all&folderName=${ folderName }" class="btn btn-default" id="btnDownload" onClick="setTimeout('window.location.reload()',300);" >Download All</a>
 </div>
 <div id="message">
 	
