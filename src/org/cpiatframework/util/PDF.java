@@ -82,7 +82,7 @@ public class PDF {
 			    t.addCell(c3);
 				String[] lines = finalResult.split(",");
 				for(String line: lines){
-					String[] cells = line.split("-");
+					String[] cells = line.split("~");
 					
 					if (cells.length == 3) {
 						for(int i=0; i < 3; i++){
