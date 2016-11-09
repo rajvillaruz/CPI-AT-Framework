@@ -1,18 +1,19 @@
 package org.cpiatframework.util;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.cpiatframework.library.TestKeyword;
 
 public class Test {
-	public String keyword = "";
-	public String elementKey = "";
-	public String property = "";
-	public String value = "";
-	public String expected = "";
-	public String ipAddress = "";
-	public String project = "";
-	public String folderDate = "";
+	public String keyword;
+	public String elementKey;
+	public String property;
+	public String value;
+	public String expected;
+	public String ipAddress;
+	public String project;
+	public String folderDate;
 	public String[] browser;
 	
 	public Test(String keyword) {
@@ -100,30 +101,85 @@ public class Test {
 		}
 		
 		if (expected != null){
-			String[] exp = expected.split(",");
 			Expected eu;
-			int size = exp.length;
-			switch (size){
-			case 2:
-				eu = new Expected(exp[0], exp[1]);
-				eu.setFolderDate(folderDate);
-				eu.setProject(project);
-				eu.setBrowser(browser[0]);
-				result = result + "-" + eu.callMethod();
-				break;
-			case 3:
-				eu = new Expected(exp[0], exp[1], exp[2]);
-				eu.setFolderDate(folderDate);
-				eu.setProject(project);
-				eu.setBrowser(browser[0]);
-				result = result + "-" + eu.callMethod();
-				break;
-			default:
-				break;
-			}	
-		} else{
-			result = result + "- ";
+			if (expected.contains("(")) {
+				result = multiplePropVal();
+			} else {
+				String[] exp = expected.split(",");
+				int size = exp.length;
+				switch (size){
+					case 1:
+						eu = new Expected(expected);
+						eu.setBrowser(browser[0]);
+						eu.setProject(project);
+						eu.setFolderDate(folderDate);
+						result = result + "~" + eu.callMethod();
+						break;
+					case 3:
+						eu = new Expected(exp[0], exp[1], exp[2]);		
+						eu.setBrowser(browser[0]);
+						eu.setProject(project);
+						eu.setFolderDate(folderDate);
+						result = result + "~" + eu.callMethod();
+						break;
+					case 4:
+						eu = new Expected(exp[0], exp[1], exp[2], exp[3]);
+						eu.setBrowser(browser[0]);
+						eu.setProject(project);
+						eu.setFolderDate(folderDate);
+						result = result + "~" + eu.callMethod();
+						break;
+					default:
+						break;
+				}
+			}
+			
+		} else {
+			result = result + "~ ";
 		}
-		return keyword + "-" + result;
+		
+		if(property == null){
+			property = " ";
+		}
+		
+		return keyword + " " + property + "~" + result;
+	}
+
+	private String multiplePropVal() throws IOException {
+		Expected eu;
+		String result = "";
+		int idxOfOpen = expected.indexOf("(") + 1;
+		int idxOfClose = expected.indexOf(")");
+		String[] propsValue = null;
+		String[] action = expected.substring(0, idxOfOpen - 2).concat(expected.substring(idxOfClose + 1)).split(",");
+		result = result + "~";
+		if (expected.contains("{")) {
+			String[] pair = expected.substring(idxOfOpen, idxOfClose).split("[{]");
+			for (int i=0; i < pair.length; i++) {			
+				if (!pair[i].isEmpty()) {
+					propsValue = pair[i].split(",");
+					System.out.println("inside if " + propsValue[0]);
+					System.out.println("prop[1] " + propsValue[1].substring(0,propsValue[1].length() - 1));
+					eu = new Expected(action[0], action[1], propsValue[0], propsValue[1].substring(0,propsValue[1].length() - 1));		
+					eu.setBrowser(browser[0]);
+					eu.setProject(project);
+					eu.setFolderDate(folderDate);
+					result = result  + "\n" + eu.callMethod() + "\n";
+					System.out.println("expected" + result);
+				}
+			}
+		} else {
+			propsValue = expected.substring(idxOfOpen, idxOfClose).split(",");
+			for (String prop : propsValue) {
+				eu = new Expected(action[0], action[1], prop);		
+				eu.setBrowser(browser[0]);
+				eu.setProject(project);
+				eu.setFolderDate(folderDate);
+				result = result + "\n" + eu.callMethod() + "\n";
+				System.out.println("expected" + result);
+			}
+		}
+		
+		return result;
 	}
 }
