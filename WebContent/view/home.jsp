@@ -31,19 +31,19 @@
 				<div class="form-group">
 					<label for="txtProjectName">Project Name:</label>
 					<div>
-						<input type="text" class="form-control" id="txtProjectName" placeholder="Enter project">
+						<input type="text" class="form-control" id="txtProjectName" placeholder="Enter project" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="txtQAName">QA Name:</label>
 					<div> 
-						<input type="text" class="form-control" id="txtQAName" placeholder="Enter name">
+						<input type="text" class="form-control" id="txtQAName" placeholder="Enter name" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="txtQAName">IP:</label>
 					<div> 
-						<input type="text" class="form-control" id="txtIP" placeholder="Enter IP Address">
+						<input type="text" class="form-control" id="txtIP" placeholder="Enter IP Address" required>
 					</div>
 				</div>
 				<div class="form-group"> 
