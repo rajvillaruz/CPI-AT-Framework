@@ -66,6 +66,12 @@ public class Expected {
 		ExpectedKeyword.folderDate = folderDate;
 		System.out.println(ExpectedKeyword.browser);
 		switch (keyword.toUpperCase()) {
+		case "GET NUMBER OF LINKS":
+			result = ExpectedKeyword.getNumberOfLinks(keyword);
+			break;
+		case "GET ALL LINKS":
+			result = ExpectedKeyword.getAllLinks(keyword);
+			break;
 		case "ELEMENT SHOULD BE VISIBLE":
 			result = ExpectedKeyword.elementIsVisible(keyword, elementKey, property);
 			break;
@@ -83,6 +89,18 @@ public class Expected {
 			break;
 		case "ELEMENT SHOULD BE DISABLED":
 			result = ExpectedKeyword.elementIsDisabled(keyword, elementKey, property);
+			break;
+		case "ELEMENT TEXT SHOULD MATCH EXPECTED":
+			result = ExpectedKeyword.elementTextShouldMatchExpected(keyword, elementKey, property, value);
+			break;
+		case "GET ALERT MESSAGE":
+			result = ExpectedKeyword.getAlertMessage(keyword, elementKey, property);
+			break;
+		case "CHECKBOX SHOULD BE SELECTED":
+			result = ExpectedKeyword.checkboxShouldBeSelected(keyword, elementKey, property);
+			break;
+		case "MODAL SHOULD BE VISIBLE":
+			result = ExpectedKeyword.modalIsVisible(keyword, elementKey, property);
 			break;
 		default:
 			break;
