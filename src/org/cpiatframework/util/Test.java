@@ -77,7 +77,7 @@ public class Test {
 	public void setBrowser(String[] browser) {
 		this.browser = browser;
 	}
-	
+
 	public String callMethod() throws IOException {
 		String result = "";
 		switch (keyword.toUpperCase()) {
@@ -100,37 +100,86 @@ public class Test {
 			break;
 		}
 		
+		System.out.println("ACTION: " + keyword + "result: " + result);
+		
 		if (expected != null){
-			Expected eu;
-			if (expected.contains("(")) {
-				result = multiplePropVal();
+			Expected eu;			
+			String[] expectedLine = null;
+			if (expected.contains("\n")) {
+				System.out.println("new line here");
+				expectedLine = expected.split("\n");
+				System.out.println(expectedLine.length);
+			}
+			
+			if (expectedLine == null) {
+				if (expected.contains("(")) {
+					result = result + multiplePropVal(expected);
+				} else {
+					String[] exp = expected.split(",");
+					int size = exp.length;
+					switch (size){
+						case 1:
+							eu = new Expected(expected);
+							eu.setBrowser(browser[0]);
+							eu.setProject(project);
+							eu.setFolderDate(folderDate);
+							result = result + "~" + eu.callMethod();
+							break;
+						case 3:
+							eu = new Expected(exp[0], exp[1], exp[2]);		
+							eu.setBrowser(browser[0]);
+							eu.setProject(project);
+							eu.setFolderDate(folderDate);
+							result = result + "~" + eu.callMethod();
+							break;
+						case 4:
+							eu = new Expected(exp[0], exp[1], exp[2], exp[3]);
+							eu.setBrowser(browser[0]);
+							eu.setProject(project);
+							eu.setFolderDate(folderDate);
+							result = result + "~" + eu.callMethod();
+							break;
+						default:
+							break;
+					}
+				}
 			} else {
-				String[] exp = expected.split(",");
-				int size = exp.length;
-				switch (size){
-					case 1:
-						eu = new Expected(expected);
-						eu.setBrowser(browser[0]);
-						eu.setProject(project);
-						eu.setFolderDate(folderDate);
-						result = result + "~" + eu.callMethod();
-						break;
-					case 3:
-						eu = new Expected(exp[0], exp[1], exp[2]);		
-						eu.setBrowser(browser[0]);
-						eu.setProject(project);
-						eu.setFolderDate(folderDate);
-						result = result + "~" + eu.callMethod();
-						break;
-					case 4:
-						eu = new Expected(exp[0], exp[1], exp[2], exp[3]);
-						eu.setBrowser(browser[0]);
-						eu.setProject(project);
-						eu.setFolderDate(folderDate);
-						result = result + "~" + eu.callMethod();
-						break;
-					default:
-						break;
+				result = result + "~";
+				for (String line : expectedLine) {
+					if (line.contains("(")) {
+						result = multiplePropVal(line);
+						System.out.println(line);
+					} else {
+						System.out.println(line);
+						String[] exp = line.split(",");
+						int size = exp.length;
+						switch (size){
+							case 1:
+								eu = new Expected(line);
+								eu.setBrowser(browser[0]);
+								eu.setProject(project);
+								eu.setFolderDate(folderDate);
+								result = result + "\n" + eu.callMethod();
+								break;
+							case 3:
+								eu = new Expected(exp[0], exp[1], exp[2]);		
+								eu.setBrowser(browser[0]);
+								eu.setProject(project);
+								eu.setFolderDate(folderDate);
+								result = result + "\n" + eu.callMethod();
+								break;
+							case 4:
+								eu = new Expected(exp[0], exp[1], exp[2], exp[3]);
+								eu.setBrowser(browser[0]);
+								eu.setProject(project);
+								eu.setFolderDate(folderDate);
+								result = result + "\n" + eu.callMethod();
+								break;
+							default:
+								break;
+						}
+						System.out.println("expected per line:" + result);
+					}
 				}
 			}
 			
@@ -145,14 +194,14 @@ public class Test {
 		return keyword + " " + property + "~" + result;
 	}
 
-	private String multiplePropVal() throws IOException {
+	private String multiplePropVal(String expected) throws IOException {
 		Expected eu;
 		String result = "";
+		result = result + "~";
 		int idxOfOpen = expected.indexOf("(") + 1;
 		int idxOfClose = expected.indexOf(")");
 		String[] propsValue = null;
 		String[] action = expected.substring(0, idxOfOpen - 2).concat(expected.substring(idxOfClose + 1)).split(",");
-		result = result + "~";
 		if (expected.contains("{")) {
 			String[] pair = expected.substring(idxOfOpen, idxOfClose).split("[{]");
 			for (int i=0; i < pair.length; i++) {			
@@ -161,25 +210,29 @@ public class Test {
 					System.out.println("inside if " + propsValue[0]);
 					System.out.println("prop[1] " + propsValue[1].substring(0,propsValue[1].length() - 1));
 					eu = new Expected(action[0], action[1], propsValue[0], propsValue[1].substring(0,propsValue[1].length() - 1));		
-					eu.setBrowser(browser[0]);
-					eu.setProject(project);
-					eu.setFolderDate(folderDate);
-					result = result  + "\n" + eu.callMethod() + "\n";
+					result = result + expectedMethodCaller(eu);
 					System.out.println("expected" + result);
 				}
 			}
 		} else {
+			System.out.println("prior result: " + result);
 			propsValue = expected.substring(idxOfOpen, idxOfClose).split(",");
 			for (String prop : propsValue) {
 				eu = new Expected(action[0], action[1], prop);		
-				eu.setBrowser(browser[0]);
-				eu.setProject(project);
-				eu.setFolderDate(folderDate);
-				result = result + "\n" + eu.callMethod() + "\n";
+				result = result + expectedMethodCaller(eu);
 				System.out.println("expected" + result);
 			}
 		}
 		
+		return result;
+	}
+	
+	private String expectedMethodCaller(Expected eu) throws IOException {
+		String result = "";
+		eu.setBrowser(browser[0]);
+		eu.setProject(project);
+		eu.setFolderDate(folderDate);
+		result = "\n" + eu.callMethod() + "\n";
 		return result;
 	}
 }

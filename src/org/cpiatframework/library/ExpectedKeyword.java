@@ -478,7 +478,6 @@ public static String elementTextShouldMatchExpected(String keyword, String eleme
 	
 	private static void takeScreenShot(String keyword, String property, String remarks) throws IOException{
 		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		
 		FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks + ".png"));
 	}
 }
