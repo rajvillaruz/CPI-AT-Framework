@@ -51,7 +51,7 @@ public class ResultController extends HttpServlet {
 				response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
 				
 				ServletOutputStream os = response.getOutputStream();
-				byte[] bufferData = new byte[1024];
+				byte[] bufferData = new byte[65536];
 				int read=0;
 				while((read = fis.read(bufferData))!= -1){
 					os.write(bufferData, 0, read);

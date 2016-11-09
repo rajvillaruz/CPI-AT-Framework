@@ -17,6 +17,10 @@ function executeScript() {
 		    processData: false,
 		    success: function(result){
 				$('#results').html(result);
+//				$('#pdfContent').append('<object id="pdf" data="' 
+//											+ Config.server + "MainController.json?pdfPath=" + this.pathToPdfFile 
+//											+ '" type="application/pdf" width="600" height="800"></object>');
+//				$('#pdfContent').html(response);
 				$('#btnExecute').prop('disabled', false);
 			}
 		});

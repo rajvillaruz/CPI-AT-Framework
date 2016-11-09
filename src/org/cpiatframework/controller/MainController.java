@@ -1,14 +1,18 @@
 package org.cpiatframework.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +27,7 @@ import org.cpiatframework.util.PDF;
 import org.cpiatframework.util.Upload;
 
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfName;
 
 @WebServlet("/MainController")
 public class MainController extends HttpServlet {
@@ -59,19 +64,28 @@ public class MainController extends HttpServlet {
 				ipAddress = request.getParameter("ipaddress");
 				SimpleDateFormat ft = new SimpleDateFormat ("MM-dd-yyyy hh.mm.ss a");
 				folderDate = ft.format(new Date());
-				String folderName = project + "-" + folderDate;
-				request.setAttribute("folderName", folderName );
+				String testName = project + "-" + folderDate;
+				String resultPath = Constants.PATH_DOWNLOAD + File.separator + testName;
 				Upload fileUpload = new Upload(request, filePath);
 				File excelFile = fileUpload.uploadFile();
+				
+				request.setAttribute("folderName", testName );
+				
 				if (excelFile != null) {
 					page = "view/result.jsp";
 					try {
 						BrowserTest browserTest = new BrowserTest(browsers, excelFile, ipAddress, project, folderDate);
-						System.out.println(filePath);
 						crossBrowserResult = browserTest.testcase(filePath);
-						File pdfFile = new File(Constants.PATH_DOWNLOAD + File.separator + folderName + File.separator + project + "-" + folderDate + ".pdf");
+						String PdfPath = resultPath + File.separator + testName + ".pdf";
+						File pdfFile = new File(PdfPath);
 						PDF pdf = new PDF(pdfFile, project, qa, crossBrowserResult);
 						pdf.writePDF();
+						List<File> resultFiles = listf(resultPath);
+						for (File file : resultFiles) {
+							System.out.println(file.getName());
+						}
+						
+						request.setAttribute("resultFiles", resultFiles);
 					} catch (EncryptedDocumentException e) {
 						e.printStackTrace();
 					} catch (InvalidFormatException e) {
@@ -87,5 +101,23 @@ public class MainController extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
+	public static List<File> listf(String directoryName) {
+        File directory = new File(directoryName);
+
+        List<File> resultList = new ArrayList<File>();
+
+        // get all the files from a directory
+        File[] fList = directory.listFiles();
+        resultList.addAll(Arrays.asList(fList));
+        for (File file : fList) {
+            if (file.isFile()) {
+                System.out.println(file.getAbsolutePath());
+            } else if (file.isDirectory()) {
+                resultList.addAll(listf(file.getAbsolutePath()));
+            }
+        }
+        //System.out.println(fList);
+        return resultList;
+    } 
 	
 }
