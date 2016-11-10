@@ -3,6 +3,7 @@ package org.cpiatframework.util;
 import java.io.IOException;
 
 import org.cpiatframework.library.ExpectedKeyword;
+import org.cpiatframework.library.TestKeyword;
 
 public class Expected {
 	private String keyword = "";
@@ -61,6 +62,7 @@ public class Expected {
 	
 	public String callMethod() throws IOException {
 		String result = "";
+		String test = "";
 		ExpectedKeyword.browser = browser;
 		ExpectedKeyword.project = project;
 		ExpectedKeyword.folderDate = folderDate;
@@ -102,10 +104,17 @@ public class Expected {
 		case "MODAL SHOULD BE VISIBLE":
 			result = ExpectedKeyword.modalIsVisible(keyword, elementKey, property);
 			break;
+		case "":
+			break;
 		default:
+			test = null;
 			break;
 		}
 		
+		if (test == null) {
+			TestKeyword.driver.quit();
+			return "wrongkey";
+		}
 		
 		return keyword + " \n" + result;
 	}

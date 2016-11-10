@@ -57,6 +57,7 @@ public class MainController extends HttpServlet {
 			if( !isMultipart ){
 				System.out.println("isnotmultipart");
 				page = "view/error.jsp";
+				request.setAttribute("message", "No file uploaded" );
 			} else {
 				
 				String project = request.getParameter("projectName");
@@ -76,16 +77,20 @@ public class MainController extends HttpServlet {
 					try {
 						BrowserTest browserTest = new BrowserTest(browsers, excelFile, ipAddress, project, folderDate);
 						crossBrowserResult = browserTest.testcase(filePath);
-						String PdfPath = resultPath + File.separator + testName + ".pdf";
-						File pdfFile = new File(PdfPath);
-						PDF pdf = new PDF(pdfFile, project, qa, crossBrowserResult);
-						pdf.writePDF();
-						List<File> resultFiles = listf(resultPath);
-						for (File file : resultFiles) {
-							System.out.println(file.getName());
+						if (crossBrowserResult == null) {
+							page = "view/error.jsp";
+							request.setAttribute("message", "Error in Test Case" );
+						} else {
+							String PdfPath = resultPath + File.separator + testName + ".pdf";
+							File pdfFile = new File(PdfPath);
+							PDF pdf = new PDF(pdfFile, project, qa, crossBrowserResult);
+							pdf.writePDF();
+							List<File> resultFiles = listf(resultPath);
+							for (File file : resultFiles) {
+								System.out.println(file.getName());
+							}
+							request.setAttribute("resultFiles", resultFiles);
 						}
-						
-						request.setAttribute("resultFiles", resultFiles);
 					} catch (EncryptedDocumentException e) {
 						e.printStackTrace();
 					} catch (InvalidFormatException e) {
@@ -93,6 +98,8 @@ public class MainController extends HttpServlet {
 					} catch (DocumentException e) {
 						e.printStackTrace();
 					}
+				} else {
+					request.setAttribute("message", "No file uploaded." );
 				}
 			}
 		}

@@ -35,7 +35,12 @@ public class BrowserTest {
 			List<List<List<String>>> testSuite = newFile.read();
 			for (List<List<String>> testCase : testSuite){
 				String testCaseResult = testActions(testCase, browser);
-				crossBrowserResult.add(testCaseResult);
+				if (testCaseResult == null) {
+					return null;
+				} else {
+					crossBrowserResult.add(testCaseResult);
+				}
+				
 			}
 		}
 		return crossBrowserResult;
@@ -80,10 +85,12 @@ public class BrowserTest {
 				stepResult = test.callMethod();
 				break;
 			default:
-				//error
 				break;
 			}
 			
+			if (stepResult == null) {
+				return null;
+			}
 			testCaseResult = testCaseResult.concat(stepResult + ",");
 		}
 		

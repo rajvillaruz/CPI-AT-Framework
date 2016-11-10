@@ -114,7 +114,7 @@ public class TestKeyword {
 			by = By.xpath(property);
 		} else if (property.contains("class")){
 			by = By.className(property);
-		} else if (property.endsWith("name")){
+		} else if (property.contains("name")){
 			by = By.name(property);
 		} else if (property.contains("tagname")){
 			by = By.tagName(property);

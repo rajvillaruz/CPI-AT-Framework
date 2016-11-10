@@ -80,6 +80,7 @@ public class Test {
 
 	public String callMethod() throws IOException {
 		String result = "";
+		String test = "string";
 		switch (keyword.toUpperCase()) {
 		case "OPEN BROWSER":
 			result = TestKeyword.openBrowser(browser, ipAddress);
@@ -96,8 +97,16 @@ public class Test {
 		case "CLOSE BROWSER":
 			result = TestKeyword.closeBrowser();
 			break;
-		default:
+		case "":
 			break;
+		default:
+			test = null;
+			break;
+		}
+		
+		if (test == null) {
+			TestKeyword.driver.quit();
+			return null;
 		}
 		
 		System.out.println("ACTION: " + keyword + "result: " + result);
@@ -112,6 +121,7 @@ public class Test {
 			}
 			
 			if (expectedLine == null) {
+				System.out.println(expected);
 				if (expected.contains("(")) {
 					result = result + multiplePropVal(expected);
 				} else {
@@ -156,36 +166,34 @@ public class Test {
 						switch (size){
 							case 1:
 								eu = new Expected(line);
-								eu.setBrowser(browser[0]);
-								eu.setProject(project);
-								eu.setFolderDate(folderDate);
-								result = result + "\n" + eu.callMethod();
+								result = result + expectedMethodCaller(eu);
 								break;
 							case 3:
 								eu = new Expected(exp[0], exp[1], exp[2]);		
-								eu.setBrowser(browser[0]);
-								eu.setProject(project);
-								eu.setFolderDate(folderDate);
-								result = result + "\n" + eu.callMethod();
+								result = result + expectedMethodCaller(eu);
 								break;
 							case 4:
 								eu = new Expected(exp[0], exp[1], exp[2], exp[3]);
-								eu.setBrowser(browser[0]);
-								eu.setProject(project);
-								eu.setFolderDate(folderDate);
-								result = result + "\n" + eu.callMethod();
+								result = result + expectedMethodCaller(eu);
 								break;
 							default:
 								break;
 						}
 						System.out.println("expected per line:" + result);
+						
 					}
 				}
+			}
+			
+			if (result.contains("wrongkey")) {
+				return null;
 			}
 			
 		} else {
 			result = result + "~ ";
 		}
+		
+		
 		
 		if(property == null){
 			property = " ";
