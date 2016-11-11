@@ -49,14 +49,18 @@ public class ResultController extends HttpServlet {
 				response.setContentType(mimeType != null? mimeType:"application/octet-stream");
 				response.setContentLength((int) downloadAll.length());
 				response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
+				response.setHeader("Content-Length", String.valueOf(downloadAll.length()));
 				
 				ServletOutputStream os = response.getOutputStream();
-				byte[] bufferData = new byte[65536];
+				byte[] bufferData = new byte[10 * 65536];
 				int read=0;
 				while((read = fis.read(bufferData))!= -1){
+					System.out.println("buffer: " + bufferData + " read: " + read);
 					os.write(bufferData, 0, read);
+					os.flush();
+					response.flushBuffer();
 				}
-				os.flush();
+				//os.flush();
 				os.close();
 				fis.close();
 			}catch (Exception ex){
