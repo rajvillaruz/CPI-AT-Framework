@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.cpiatframework.library.ExpectedKeyword;
 import org.cpiatframework.library.TestKeyword;
 
+
 public class Expected {
 	private String keyword = "";
 	private String elementKey = "";
@@ -103,6 +104,9 @@ public class Expected {
 			break;
 		case "MODAL SHOULD BE VISIBLE":
 			result = ExpectedKeyword.modalIsVisible(keyword, elementKey, property);
+			break;
+		case "ELEMENT SELECTED SHOULD BE":
+			result = ExpectedKeyword.elementSelectedShouldBe(keyword, elementKey, property,value);
 			break;
 		case "":
 			break;

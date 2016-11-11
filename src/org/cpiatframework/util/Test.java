@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.cpiatframework.library.TestKeyword;
 
+
 public class Test {
 	public String keyword;
 	public String elementKey;
@@ -94,8 +95,51 @@ public class Test {
 		case "CLICK BUTTON":
 			result = TestKeyword.clickButton(elementKey, property);
 			break;
+		case "CLICK ELEMENT":
+			result = TestKeyword.clickButton(elementKey, property);
+			break;
+		case "CLICK LINK":
+			System.out.println("CLICK LINK" + property);
+			result = TestKeyword.clickButton(elementKey, property);
+			break;
+		case "CLICK IMAGE":
+			result = TestKeyword.clickButton(elementKey, property);
+			break;
+		case "CLEAR TEXT ELEMENT":
+			result = TestKeyword.clearTextElement(elementKey, property);
+			break;
+		case "ACCEPT ALERT":
+			result = TestKeyword.acceptAlert();
+			break;
+		case "DISMISS ALERT":
+			result = TestKeyword.dismissAlert();
+			break;
+		case "GO BACK":
+			result = TestKeyword.goBack();
+			break;
+		case "REFRESH PAGE":
+			result = TestKeyword.refreshPage();
+			break;
+		case "SELECT RADIO BUTTON":
+			result = TestKeyword.selectRadioButton(elementKey, property);
+			break;
+		case "SELECT CHECKBOX":
+			result = TestKeyword.selectRadioButton(elementKey, property);
+			break;
+		case "DOUBLE CLICK ELEMENT":
+			result = TestKeyword.doubleClickElement(elementKey, property);
+			break;
+		case "WAIT UNTIL ELEMENT IS VISIBLE":
+			result = TestKeyword.waitUntilElementIsVisible(elementKey, property);
+			break;
+		case "UPLOAD FILE":
+			result = TestKeyword.uploadFile(elementKey, property, value);
+			break;
 		case "CLOSE BROWSER":
 			result = TestKeyword.closeBrowser();
+			break;
+		case "SELECT FROM DROPDOWN":
+			result = TestKeyword.selectFromDropdown(elementKey, property, value);
 			break;
 		case "":
 			break;
