@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.cpiatframework.config.Constants;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -12,8 +14,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TestKeyword {
@@ -252,8 +256,12 @@ public class TestKeyword {
 		String msg = "";
 		try {
 			By byElement= getPropBy(elementKey, property);
-			
-		    driver.findElement(byElement).sendKeys(value);
+//			
+//		    driver.findElement(byElement).sendKeys(value);
+		    
+		    ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
+		    WebElement upload = driver.findElement(byElement);
+		    upload.sendKeys(value);
 			
 			msg = " ";
 			result = "PASSED";
@@ -270,10 +278,20 @@ public class TestKeyword {
 		String result;
 		String msg = "";
 		try {
-			By byElement= getPropBy(elementKey, property);
 			
-			driver.findElement(byElement).click();
-			driver.findElement(byElement).sendKeys(value);
+			By byElement= getPropBy(elementKey, property);
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(byElement));
+			Select drpdown = new Select(driver.findElement(byElement));
+			for (WebElement options : drpdown.getOptions()) {		
+				System.out.println(options.getText().equalsIgnoreCase("Java Advanced Topics") + " " + value + " " + options.getText());
+				if (options.getText().equalsIgnoreCase(value)) {
+					System.out.println("selected");
+					drpdown.selectByIndex(drpdown.getOptions().indexOf(options));
+					wait.until(ExpectedConditions.elementSelectionStateToBe(options, true));
+					break;
+				}
+			}
 			msg = " ";
 			result = "PASSED";
 			
@@ -312,11 +330,11 @@ public class TestKeyword {
 			by = By.name(property);
 		} else if (elementKey.equalsIgnoreCase("tagname")){
 			by = By.tagName(property);
-		} else if (elementKey.equalsIgnoreCase("linkText")){
+		} else if (elementKey.equalsIgnoreCase("link Text")){
 			by = By.linkText(property);
-		} else if (elementKey.equalsIgnoreCase("partialLinkText")){
+		} else if (elementKey.equalsIgnoreCase("partialLink Text")){
 			by = By.partialLinkText(property);
-		} else if (elementKey.equalsIgnoreCase("cssSelector")){
+		} else if (elementKey.equalsIgnoreCase("css Selector")){
 			by = By.cssSelector(property);
 		} else {
 			by = By.id(property);

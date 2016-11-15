@@ -522,7 +522,7 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 		/*Select dropdown = new Select(driver.findElement(getPropBy(elementKey, property)));
 
 		WebElement option = dropdown.getFirstSelectedOption();
-		System.out.println(option.getText());*/
+		System.out.println(option.getText());*/		
 		
 		try{
 			
