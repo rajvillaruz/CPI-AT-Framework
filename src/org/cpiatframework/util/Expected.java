@@ -108,6 +108,9 @@ public class Expected {
 		case "ELEMENT SELECTED SHOULD BE":
 			result = ExpectedKeyword.elementSelectedShouldBe(keyword, elementKey, property,value);
 			break;
+		case "GET LIST ITEMS":
+			result = ExpectedKeyword.getListItems(keyword, elementKey, property);
+			break;
 		case "":
 			break;
 		default:

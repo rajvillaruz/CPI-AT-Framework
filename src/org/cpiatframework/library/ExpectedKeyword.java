@@ -17,6 +17,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.assertthat.selenium_shutterbug.core.Shutterbug;
@@ -559,6 +560,68 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 		return result;
 	}
 
+	
+	public static String getListItems(String keyword, String elementKey, String property) throws IOException{
+		
+		String result = "";	
+		String msg = "";
+		String remarks ="";
+		
+		
+		
+		try{
+			new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(getPropBy(elementKey, property)));
+			Thread.sleep(500);
+			
+			
+			msg = "List contains: \n";
+			Select dropdown = new Select(driver.findElement(getPropBy(elementKey, property)));
+			
+			List<WebElement> options = dropdown.getOptions();
+			for (WebElement option : options){
+				System.out.println("OPTIONS: " + option.getText());
+				msg += option.getText() + "\n";
+
+			}
+			
+			/*String actual = driver.findElement(getPropBy(elementKey, property)).getText();
+			System.out.println(actual);*/
+			
+			
+			remarks = "PASSED";
+			result = remarks + ":" + " " + msg;
+			/*String actual = driver.findElement(getPropBy(elementKey, property)).getText();
+			element = driver.findElement(getPropBy(elementKey, property));
+			msg = "List contains: \n" + actual;
+			remarks = "PASSED";
+			result = remarks + ":" + " " + msg;*/
+			/*List<WebElement> options = driver.findElements(getPropBy(elementKey, property));
+
+			for(WebElement option:options){
+				element = driver.findElement(getPropBy(elementKey, property));
+				msg = "List contains: \n" + option.getText();
+				remarks = "PASSED";
+				result = remarks + ":" + " " + msg;
+			}*/
+			
+				
+		} catch (Exception e){
+			/*msg = e.getMessage();
+			result = "FAILED:" + " " + msg;*/
+			msg = "Error getting items on the list.";
+			remarks = "FAILED";
+			result = remarks + ":" + " " + msg;
+		} finally {
+			if(remarks == "PASSED"){
+				takeScreenShotPassed(keyword, remarks);
+			} else {
+				takeScreenShotFailed(keyword, elementKey, property, remarks);
+			}
+		}
+		
+		System.out.println("Result of list contains: " + result);
+		return result;
+	}
 	
 //	public static By getPropBy(String elementKey, String property) throws IOException {
 //		//ObjectLibrary obj = new ObjectLibrary();
