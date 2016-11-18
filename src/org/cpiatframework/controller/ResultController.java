@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -52,17 +53,19 @@ public class ResultController extends HttpServlet {
 				response.setHeader("Content-Length", String.valueOf(downloadAll.length()));
 				
 				ServletOutputStream os = response.getOutputStream();
-				byte[] bufferData = new byte[10 * 65536];
+				byte[] bufferData = new byte[10*65536];
 				int read=0;
 				while((read = fis.read(bufferData))!= -1){
 					System.out.println("buffer: " + bufferData + " read: " + read);
 					os.write(bufferData, 0, read);
-					os.flush();
+					//os.flush();
 					response.flushBuffer();
 				}
-				//os.flush();
+				os.flush();
 				os.close();
 				fis.close();
+
+				
 			}catch (Exception ex){
 				ex.printStackTrace();
 			} finally {

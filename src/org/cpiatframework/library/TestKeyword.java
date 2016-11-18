@@ -1,15 +1,19 @@
 package org.cpiatframework.library;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.util.StringUtil;
 import org.cpiatframework.config.Constants;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -19,6 +23,9 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.assertthat.selenium_shutterbug.core.Shutterbug;
+import com.assertthat.selenium_shutterbug.utils.web.ScrollStrategy;
 
 public class TestKeyword {
 	static WebElement element;
@@ -68,6 +75,24 @@ public class TestKeyword {
 		return result;
 	}
 	
+	
+	public static String takeScreenShot(String fileName, String project, String folderDate, String browser){
+		String result;
+		String msg = "";
+		try {
+			Thread.sleep(2000);
+			System.out.println("take screenshot");
+			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(fileName + " -- " + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Screenshots" + "\\");
+//			FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser[2] + " - SCREENSHOTS" + "\\" + fileName + ".png"));
+			result = "PASSED";
+		} catch (Exception e) {
+			msg = e.getMessage();
+			result = "FAILED" + " " + msg;
+		}
+		
+		return result;
+	}
+	
 	public static String inputText(String elementKey, String property, String value) throws IOException {
 		String result;
 		String msg = "";
@@ -76,7 +101,7 @@ public class TestKeyword {
 			driver.findElement(byInputProp).sendKeys(value);
 			result = "PASSED";
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "Unable to locate element. Please check your locator/s or identifier/s.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -95,7 +120,7 @@ public class TestKeyword {
 			msg = " ";
 			result = "PASSED";
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "Unable to locate element.Please check your locator/s or identifier/s.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -111,7 +136,7 @@ public class TestKeyword {
 			msg = " ";
 			result = "PASSED";
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "Unable to locate element.Please check your locator/s or identifier/s.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -127,7 +152,7 @@ public class TestKeyword {
 			msg = " ";
 			result = "PASSED";
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "Unable to dismiss alert.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -145,7 +170,7 @@ public class TestKeyword {
 			msg = " ";
 			result = "PASSED";
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "Unable to accept alert.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -198,7 +223,7 @@ public class TestKeyword {
 				result = "FAILED";
 			}
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "Unable to locate element.Please check your locator/s or identifier/s.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -217,7 +242,7 @@ public class TestKeyword {
 			} 
 
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "Unable to locate element.Please check your locator/s or identifier/s.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -243,7 +268,7 @@ public class TestKeyword {
 			}
 				
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "Unable to locate element.Please check your locator/s or identifier/s.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -267,7 +292,7 @@ public class TestKeyword {
 			result = "PASSED";
 				
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "No file uploaded.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -296,7 +321,7 @@ public class TestKeyword {
 			result = "PASSED";
 			
 		} catch (Exception e) {
-			msg = e.getMessage();
+			msg = "Unable to locate element.Please check your locator/s or identifier/s.";
 			result = "FAILED" + " " + msg;
 		}
 		
@@ -308,6 +333,7 @@ public class TestKeyword {
 		String msg = "";
 		
 		try {
+			Thread.sleep(5000);
 			driver.quit();
 			result = "PASSED";
 		} catch (Exception e) {

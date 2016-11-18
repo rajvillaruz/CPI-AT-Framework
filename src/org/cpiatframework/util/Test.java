@@ -89,6 +89,9 @@ public class Test {
 		case "LAUNCH APP":
 			result = TestKeyword.launchApp(property);
 			break;
+		case "TAKE SCREENSHOT":
+			result = TestKeyword.takeScreenShot(property, project, folderDate, browser[0]);
+			break;
 		case "INPUT TEXT":
 			result = TestKeyword.inputText(elementKey, property, value);
 			break;

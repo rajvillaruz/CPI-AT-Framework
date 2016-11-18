@@ -42,27 +42,53 @@
 						<span></span><img alt="..." src="imgs/pdf.png" class="img-responsive"  style="float: left; margin-left: 50px; margin-right:15px;">${ resultFile.name }<br/><br/>
 					</c:if>
 				</c:forEach>
-			<h5><strong>Chrome</strong></h5>
+				
+			
+			<h5><strong>Chrome Expected Results</strong></h5>
 				<c:forEach var="resultChrome" items="${ resultFiles }">
-				<c:if test="${ fn:containsIgnoreCase( resultChrome.absolutePath , 'Chrome')}">
+				<c:if test="${ fn:containsIgnoreCase( resultChrome.absolutePath , 'Chrome Expected Results')}">
 					<c:choose>
-						<c:when test="${ resultChrome.name != 'Chrome' }">
+						<c:when test="${ resultChrome.name != 'Chrome Expected Results' }">
 							<img alt="..." src="imgs/png.png" class="img-responsive" style="float: left; margin-left: 50px; margin-right:15px;">${ resultChrome.name }<br/></br/>
 						</c:when>
 					</c:choose>
 				</c:if>
-			</c:forEach>
+				</c:forEach>
 			
-			<h5><strong>Firefox</strong></h5>
-			<c:forEach var="resultFirefox" items="${ resultFiles }">
-				<c:if test="${ fn:containsIgnoreCase( resultFirefox.absolutePath , 'Firefox')}">
+			
+			<h5><strong>Chrome Screenshots</strong></h5>
+				<c:forEach var="resultChrome" items="${ resultFiles }">
+				<c:if test="${ fn:containsIgnoreCase( resultChrome.absolutePath , 'Chrome Screenshots')}">
 					<c:choose>
-						<c:when test="${ resultFirefox.name != 'Firefox' }">
+						<c:when test="${ resultChrome.name != 'Chrome Screenshots' }">
+							<img alt="..." src="imgs/png.png" class="img-responsive" style="float: left; margin-left: 50px; margin-right:15px;">${ resultChrome.name }<br/></br/>
+						</c:when>
+					</c:choose>
+				</c:if>
+				</c:forEach>
+			
+			<h5><strong>Firefox Expected Results</strong></h5>
+			<c:forEach var="resultFirefox" items="${ resultFiles }">
+				<c:if test="${ fn:containsIgnoreCase( resultFirefox.absolutePath , 'Firefox Expected Results')}">
+					<c:choose>
+						<c:when test="${ resultFirefox.name != 'Firefox Expected Results' }">
 							<img alt="..." src="imgs/png.png" class="img-responsive"  style="float: left;margin-left: 50px; margin-right:15px;">${ resultFirefox.name }<br/><br/>
 						</c:when>
 					</c:choose>
 				</c:if>
-			</c:forEach>
+				</c:forEach>
+			
+			
+			<h5><strong>Firefox Screenshots</strong></h5>
+				<c:forEach var="resultFirefox" items="${ resultFiles }">
+				<c:if test="${ fn:containsIgnoreCase( resultFirefox.absolutePath , 'Firefox Screenshots')}">
+					<c:choose>
+						<c:when test="${ resultFirefox.name != 'Firefox Screenshots' }">
+							<img alt="..." src="imgs/png.png" class="img-responsive"  style="float: left;margin-left: 50px; margin-right:15px;">${ resultFirefox.name }<br/><br/>
+						</c:when>
+					</c:choose>
+				</c:if>
+				</c:forEach>
       </div>
     </div>
   </div>

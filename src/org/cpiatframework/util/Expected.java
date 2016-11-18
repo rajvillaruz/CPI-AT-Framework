@@ -102,6 +102,9 @@ public class Expected {
 		case "CHECKBOX SHOULD BE SELECTED":
 			result = ExpectedKeyword.checkboxShouldBeSelected(keyword, elementKey, property);
 			break;
+		case "CHECKBOX SHOULD NOT BE SELECTED":
+			result = ExpectedKeyword.checkboxShouldNotBeSelected(keyword, elementKey, property);
+			break;
 		case "MODAL SHOULD BE VISIBLE":
 			result = ExpectedKeyword.modalIsVisible(keyword, elementKey, property);
 			break;
