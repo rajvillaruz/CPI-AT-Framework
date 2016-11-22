@@ -61,6 +61,7 @@ public class BrowserTest {
 				break;
 			case 2:
 				test = new Test(steps.get(0), steps.get(1));
+				test.setBrowser(browser);
 				test.setProject(project);
 				test.setFolderDate(folderDate);
 				stepResult = test.callMethod();

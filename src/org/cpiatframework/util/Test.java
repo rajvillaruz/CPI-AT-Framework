@@ -92,6 +92,9 @@ public class Test {
 		case "LAUNCH APP":
 			result = TestKeyword.launchApp(property);
 			break;
+		case "TAKE SCREENSHOT":
+			result = TestKeyword.takeScreenShot(property, project, folderDate, browser[0]);
+			break;
 		case "INPUT TEXT":
 			result = TestKeyword.inputText(elementKey, property, value);
 			break;
@@ -143,6 +146,12 @@ public class Test {
 			break;
 		case "SELECT FROM DROPDOWN":
 			result = TestKeyword.selectFromDropdown(elementKey, property, value);
+			break;
+		case "SELECT DATE-GENIISYS":
+			result = TestKeyword.selectDateGeniisys(value);
+			break;
+		case "SELECT DATE-TP":
+			result = TestKeyword.selectDateTP(value);
 			break;
 		case "":
 			break;

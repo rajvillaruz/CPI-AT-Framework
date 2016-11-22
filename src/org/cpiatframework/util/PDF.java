@@ -140,7 +140,7 @@ public class PDF {
 		  public void onEndPage(PdfWriter writer, Document document) {
 		    Rectangle rect = writer.getBoxSize("headerBox");
 		    try {
-		      Image img = Image.getInstance("C:\\Users\\ROCHELLE\\Documents\\Automated Testing References\\cpi_logo.png");
+		      Image img = Image.getInstance("C:\\Users\\cpi\\git\\CPI-AT-Framework\\WebContent\\imgs\\cpi_logo.png");
 		      img.scaleToFit(100,100);
 		      img.setAbsolutePosition(35,742); 
 		      writer.getDirectContent().addImage(img);
