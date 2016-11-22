@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -327,6 +328,124 @@ public class TestKeyword {
 		
 		return result;
 	}
+	
+	public static String selectDateGeniisys(String value) throws IOException{
+		String result;
+		String msg = "";
+		
+		String[] values = value.split("-");
+		try {
+			//month
+			new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='scwMonths']")));
+			
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='scwMonths']")));
+			Select drpdown = new Select(driver.findElement(By.xpath(".//*[@id='scwMonths']")));
+			for (WebElement options : drpdown.getOptions()) {		
+				//System.out.println(options.getText().equalsIgnoreCase("Java Advanced Topics") + " " + value + " " + options.getText());
+				if (options.getText().equalsIgnoreCase(values[0])) {
+					System.out.println("selected " + options.getText());
+					drpdown.selectByIndex(drpdown.getOptions().indexOf(options));
+					wait.until(ExpectedConditions.elementSelectionStateToBe(options, true));
+					break;
+				}
+			}
+			
+			//year
+			new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='scwYears']")));
+			Select drpdown2 = new Select(driver.findElement(By.xpath(".//*[@id='scwYears']")));
+			for (WebElement options : drpdown2.getOptions()) {		
+				//System.out.println(options.getText().equalsIgnoreCase("Java Advanced Topics") + " " + value + " " + options.getText());
+				if (options.getText().equalsIgnoreCase(values[2])) {
+					System.out.println("selected");
+					drpdown2.selectByIndex(drpdown2.getOptions().indexOf(options));
+					new WebDriverWait(driver, 10).until(ExpectedConditions.elementSelectionStateToBe(options, true));
+					break;
+				}
+			}
+			
+			//day
+			WebElement datewidget = driver.findElement(By.xpath(".//*[@id='scw']"));
+			//List<WebElement> dates = driver.findElements(By.xpath(".//*[@id='mainPageBody']/div[4]/div[1]/table/tbody/tr/td")); //calendar data
+			List<WebElement> dates = datewidget.findElements(By.tagName("td"));
+			
+			for(int i=0; i<dates.size(); i++){
+				String date = dates.get(i).getText();
+				if(date.equalsIgnoreCase(values[1])){
+					dates.get(i).click();
+					break;
+				}
+			}
+			
+			msg = " ";
+			result = "PASSED";
+			
+		} catch (Exception e) {
+			msg = "Unable to locate element.Please check the value you entered.";
+			result = "FAILED" + " " + msg;
+		}
+		
+		return result;
+	}
+	
+	
+	
+	public static String selectDateTP(String value) throws IOException{
+		String result;
+		String msg = "";
+		
+		String[] values = value.split("-");
+		try {
+			//year
+			new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(".//*[@id='mainPageBody']/div[4]/div[1]/table/thead/tr[2]/th[2]")));
+			driver.findElement(By.xpath(".//*[@id='mainPageBody']/div[4]/div[1]/table/thead/tr[2]/th[2]")).click();
+			new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(".//*[@id='mainPageBody']/div[4]/div[2]/table/thead/tr[2]/th[2]")));
+			driver.findElement(By.xpath(".//*[@id='mainPageBody']/div[4]/div[2]/table/thead/tr[2]/th[2]")).click();
+			List<WebElement> years = driver.findElements(By.tagName("span"));
+			for(int i=0; i<years.size(); i++){
+				String year = years.get(i).getText();
+				if(year.equalsIgnoreCase(values[2])){
+					years.get(i).click();
+					break;
+				}
+			}
+			
+			//month
+			new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(".//*[@id='mainPageBody']/div[4]/div[2]/table/tbody/tr/td")));
+			WebElement monthWidget =  driver.findElement(By.xpath(".//*[@id='mainPageBody']/div[4]/div[2]/table/tbody/tr/td"));
+			List<WebElement> months = monthWidget.findElements(By.tagName("span"));
+			for(int i=0; i<months.size(); i++){
+				String month = months.get(i).getText();
+				if(month.equalsIgnoreCase(values[0])){
+					months.get(i).click();
+					break;
+				}
+			}
+			
+			//day
+			new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='mainPageBody']/div[4]")));
+			WebElement datewidget = driver.findElement(By.xpath(".//*[@id='mainPageBody']/div[4]"));
+			List<WebElement> dates = datewidget.findElements(By.tagName("td"));
+			
+			for(int i=0; i<dates.size(); i++){
+				String date = dates.get(i).getText();
+				if(date.equalsIgnoreCase(values[1])){
+					dates.get(i).click();
+					break;
+				}
+			}
+			
+			msg = " ";
+			result = "PASSED";
+			
+		} catch (Exception e) {
+			msg = "Unable to locate element.Please check the value you entered.";
+			result = "FAILED" + " " + msg;
+		}
+		
+		return result;
+	}
+	
 	
 	public static String closeBrowser() {
 		String result;	

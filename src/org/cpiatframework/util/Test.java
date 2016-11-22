@@ -144,6 +144,12 @@ public class Test {
 		case "SELECT FROM DROPDOWN":
 			result = TestKeyword.selectFromDropdown(elementKey, property, value);
 			break;
+		case "SELECT DATE-GENIISYS":
+			result = TestKeyword.selectDateGeniisys(value);
+			break;
+		case "SELECT DATE-TP":
+			result = TestKeyword.selectDateTP(value);
+			break;
 		case "":
 			break;
 		default:
