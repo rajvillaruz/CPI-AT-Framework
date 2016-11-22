@@ -85,6 +85,9 @@ public class Test {
 		switch (keyword.toUpperCase()) {
 		case "OPEN BROWSER":
 			result = TestKeyword.openBrowser(browser, ipAddress);
+			if (result.contains("FAILED")) {
+				return "failed session";
+			}
 			break;
 		case "LAUNCH APP":
 			result = TestKeyword.launchApp(property);
