@@ -89,19 +89,24 @@ public class Excel {
 	public List<List<String>> read(Iterator<Row> rowIterator) {
 		List<List<String>> listOfSteps = new ArrayList<>();
 		List<String> step = null;
+		Boolean isFirstLine = true;
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
-			step = new ArrayList<String>();
-			int maxNumCell = row.getLastCellNum();
-			for (int i=0; i < maxNumCell ;i++) {
-				Cell cell = row.getCell(i);				
-				if (cell == null) {
-					step.add(null);
-				} else {
-					step.add(cell.toString());
+			if (isFirstLine) {
+				isFirstLine = false;
+			} else {
+				step = new ArrayList<String>();
+				int maxNumCell = row.getLastCellNum();
+				for (int i=0; i < maxNumCell ;i++) {
+					Cell cell = row.getCell(i);				
+					if (cell == null) {
+						step.add(null);
+					} else {
+						step.add(cell.toString());
+					}
 				}
+				listOfSteps.add(step);
 			}
-			listOfSteps.add(step);
 		}
 		System.out.println(listOfSteps);
 		return listOfSteps;

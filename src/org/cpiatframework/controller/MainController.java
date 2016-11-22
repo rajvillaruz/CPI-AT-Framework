@@ -80,6 +80,9 @@ public class MainController extends HttpServlet {
 						if (crossBrowserResult == null) {
 							page = "view/error.jsp";
 							request.setAttribute("message", "Error in Test Case" );
+						} else if (crossBrowserResult.contains("failed session")) {
+							page = "view/error.jsp";
+							request.setAttribute("message", "Error in creating session. Please check your IP Address." );
 						} else {
 							String PdfPath = resultPath + File.separator + testName + ".pdf";
 							File pdfFile = new File(PdfPath);

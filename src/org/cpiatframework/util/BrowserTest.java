@@ -92,6 +92,10 @@ public class BrowserTest {
 			if (stepResult == null) {
 				return null;
 			}
+			
+			if (stepResult.equalsIgnoreCase("failed session")) {
+				return "failed session";
+			}
 			testCaseResult = testCaseResult.concat(stepResult + ",");
 		}
 		
