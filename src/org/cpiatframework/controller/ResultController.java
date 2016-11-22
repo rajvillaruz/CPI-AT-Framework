@@ -40,9 +40,9 @@ public class ResultController extends HttpServlet {
 				Zip zipFile = new Zip(output_zip_file, source_folder);
 				zipFile.generateFileList(new File(source_folder));
 				System.out.println(output_zip_file);
-				zipFile.zipIt(output_zip_file);
-				
+				zipFile.zipIt(output_zip_file);				
 				File downloadAll = new File(output_zip_file);
+				
 				ServletContext ctx = getServletContext();
 				InputStream fis = new FileInputStream(downloadAll);
 				String mimeType = ctx.getMimeType(downloadAll.getAbsolutePath());
@@ -50,12 +50,12 @@ public class ResultController extends HttpServlet {
 				response.setContentLength((int) downloadAll.length());
 				response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
 				response.setHeader("Content-Length", String.valueOf(downloadAll.length()));
-				
 				ServletOutputStream os = response.getOutputStream();
-				byte[] bufferData = new byte[10 * 65536];
+				
+//				byte[] bufferData = new byte[10 * 65536];
+				byte[] bufferData = new byte[2048];
 				int read=0;
 				while((read = fis.read(bufferData))!= -1){
-					System.out.println("buffer: " + bufferData + " read: " + read);
 					os.write(bufferData, 0, read);
 					os.flush();
 					response.flushBuffer();
