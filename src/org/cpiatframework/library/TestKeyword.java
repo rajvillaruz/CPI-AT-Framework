@@ -473,11 +473,11 @@ public class TestKeyword {
 			by = By.className(property);
 		} else if (elementKey.equalsIgnoreCase("name")){
 			by = By.name(property);
-		} else if (elementKey.equalsIgnoreCase("tagname")){
+		} else if (elementKey.equalsIgnoreCase("tag name")){
 			by = By.tagName(property);
 		} else if (elementKey.equalsIgnoreCase("link Text")){
 			by = By.linkText(property);
-		} else if (elementKey.equalsIgnoreCase("partialLink Text")){
+		} else if (elementKey.equalsIgnoreCase("partial Link Text")){
 			by = By.partialLinkText(property);
 		} else if (elementKey.equalsIgnoreCase("css Selector")){
 			by = By.cssSelector(property);

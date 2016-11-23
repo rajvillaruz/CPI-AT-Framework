@@ -93,7 +93,7 @@ public class Test {
 			result = TestKeyword.launchApp(property);
 			break;
 		case "TAKE SCREENSHOT":
-			result = TestKeyword.takeScreenShot(property, project, folderDate, browser[0]);
+			result = TestKeyword.takeScreenShot(value, project, folderDate, browser[0]);
 			break;
 		case "INPUT TEXT":
 			result = TestKeyword.inputText(elementKey, property, value);

@@ -692,13 +692,13 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 			by = By.className(property);
 		} else if (elementKey.equalsIgnoreCase("name")){
 			by = By.name(property);
-		} else if (elementKey.equalsIgnoreCase("tagname")){
+		} else if (elementKey.equalsIgnoreCase("tag name")){
 			by = By.tagName(property);
-		} else if (elementKey.equalsIgnoreCase("linkText")){
+		} else if (elementKey.equalsIgnoreCase("link Text")){
 			by = By.linkText(property);
-		} else if (elementKey.equalsIgnoreCase("partialLinkText")){
+		} else if (elementKey.equalsIgnoreCase("partial Link Text")){
 			by = By.partialLinkText(property);
-		} else if (elementKey.equalsIgnoreCase("cssSelector")){
+		} else if (elementKey.equalsIgnoreCase("css Selector")){
 			by = By.cssSelector(property);
 		} else {
 			by = By.id(property);
@@ -719,18 +719,18 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 		if(keyword.contains("NOT")){
 			if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
 //				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + folderDate + ".png"));
-				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
+				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + elementKey + "-"/*+ "-" + property + "-" */+ remarks + " " + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 			} else {
 //				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  folderDate + ".png"));
-				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + property + "-" + remarks +  folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
+				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + property + "-" + remarks + " " + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 			}
 		} else {
 			if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
 //				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + folderDate + ".png"));
-				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
+				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + elementKey + "-"/*+ "-" + property + "-" */+ remarks + " " + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 			} else {
 //				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  folderDate + ".png"));
-				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + property + "-" + remarks +  folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
+				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + property + "-" + remarks + " " +  folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 			}
 		}
 		
@@ -740,7 +740,7 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 //		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		
 //		FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + remarks +  folderDate + ".png"));
-		Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + remarks +  folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
+		Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 	} 
 	
 	private static void takeScreenShotFailed(String keyword, String elementKey, String property, String remarks) throws IOException{
@@ -748,10 +748,10 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 		
 		if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
 //			FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + folderDate + ".png"));
-			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
+			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + elementKey + "-"/*+ "-" + property + "-" */+ remarks + " " + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 		} else {
 //			FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  folderDate + ".png"));
-			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + property + "-" + remarks +  folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
+			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + property + "-" + remarks + " " +  folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 		}
 	}
 	
@@ -759,7 +759,7 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 //		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		
 //		FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + remarks +  folderDate + ".png"));
-		Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + remarks +  folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
+		Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 	}
 	
 	
@@ -769,18 +769,18 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 		if(keyword.contains("NOT")){
 			if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
 //				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + ft.format(new Date()) + ".png"));
-				Shutterbug.shootPage(driver).withName(keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
+				Shutterbug.shootPage(driver).withName(keyword + "-" + elementKey + "-" /*+ "-" + property + "-" */+ remarks + " " + ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 			} else {
 //				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  ft.format(new Date()) + ".png"));
-				Shutterbug.shootPage(driver).withName(keyword + "-" + property + "-" + remarks +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator+ project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
+				Shutterbug.shootPage(driver).withName(keyword + "-" + property + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator+ project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 			}
 		} else {
 			if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
 //				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + ft.format(new Date()) + ".png"));
-				Shutterbug.shootPage(driver).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
+				Shutterbug.shootPage(driver).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + elementKey + "-" /*+ "-" + property + "-" */+ remarks + " " + ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 			} else {
 //				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  ft.format(new Date()) + ".png"));
-				Shutterbug.shootPage(driver).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + property + "-" + remarks +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
+				Shutterbug.shootPage(driver).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + property + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 			}
 		}
 		
@@ -791,10 +791,10 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 		
 		if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
 //			FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + ft.format(new Date()) + ".png"));
-			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
+			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + elementKey + "-" /*+ "-" + property + "-" */+ remarks + " " + ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 		} else {
 //			FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  ft.format(new Date()) + ".png"));
-			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + property + "-" + remarks +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
+			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + property + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 		}
 	}
 }
