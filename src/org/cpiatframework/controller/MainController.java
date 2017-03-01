@@ -55,7 +55,6 @@ public class MainController extends HttpServlet {
 			isMultipart = ServletFileUpload.isMultipartContent(request);
 			System.out.println(!isMultipart);
 			if( !isMultipart ){
-				System.out.println("isnotmultipart");
 				page = "view/error.jsp";
 				request.setAttribute("message", "No file uploaded" );
 			} else {

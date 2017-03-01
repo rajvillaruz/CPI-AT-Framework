@@ -439,13 +439,7 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 			msg = "Number of Links: " + noOfLinks;
 			remarks = "PASSED";
 			result = remarks + ":" + " " + msg;
-			/* else {
-				msg = property + " is not visible.";
-				result = "FAILED:" + " " + msg;
-			}*/
 		} catch (Exception e){
-			/*msg = e.getMessage();
-			result = "FAILED:" + " " + msg;*/
 			msg = e.getMessage();
 			remarks = "FAILED";
 			result = remarks + ":" + " " + msg;
@@ -657,33 +651,7 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 		return result;
 	}
 	
-//	public static By getPropBy(String elementKey, String property) throws IOException {
-//		//ObjectLibrary obj = new ObjectLibrary();
-//		if(elementKey.equalsIgnoreCase("id")){
-//			by = By.id(property);
-//		} else if (elementKey.equalsIgnoreCase("xpath")){
-//			by = By.xpath(property);
-//		} else if (elementKey.equalsIgnoreCase("class")){
-//			by = By.className(property);
-//		} else if (elementKey.equalsIgnoreCase("name")){
-//			by = By.name(property);
-//		} else if (elementKey.equalsIgnoreCase("tagname")){
-//			by = By.tagName(property);
-//		} else if (elementKey.equalsIgnoreCase("linkText")){
-//			by = By.linkText(property);
-//		} else if (elementKey.equalsIgnoreCase("partialLinkText")){
-//			by = By.partialLinkText(property);
-//		} else if (elementKey.equalsIgnoreCase("cssSelector")){
-//			by = By.cssSelector(property);
-//		} else {
-//			by = By.id(property);
-//		}
-//		
-//		return by;
-//	}
-	
 	public static By getPropBy(String elementKey, String property) throws IOException {
-		//ObjectLibrary obj = new ObjectLibrary();
 		if(elementKey.equalsIgnoreCase("id")){
 			by = By.id(property);
 		} else if (elementKey.equalsIgnoreCase("xpath")){
@@ -706,30 +674,19 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 		
 		return by;
 	}
-	
-//	private static void takeScreenShot(String keyword, String property, String remarks) throws IOException{
-//		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-//		FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks + ".png"));
-//	}
-//	
-	
+		
 	private static void takeScreenShotPassed(String keyword, String elementKey, String property, String remarks) throws IOException{
-	//	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		
 		if(keyword.contains("NOT")){
 			if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
-//				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + folderDate + ".png"));
 				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + elementKey + "-"/*+ "-" + property + "-" */+ remarks + " " + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 			} else {
-//				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  folderDate + ".png"));
 				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + property + "-" + remarks + " " + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 			}
 		} else {
 			if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
-//				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + folderDate + ".png"));
 				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + elementKey + "-"/*+ "-" + property + "-" */+ remarks + " " + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 			} else {
-//				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  folderDate + ".png"));
 				Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + property + "-" + remarks + " " +  folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 			}
 		}
@@ -737,49 +694,35 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 	}
 	
 	private static void takeScreenShotPassed(String keyword, String remarks) throws IOException{
-//		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		
-//		FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + remarks +  folderDate + ".png"));
 		Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 	} 
 	
 	private static void takeScreenShotFailed(String keyword, String elementKey, String property, String remarks) throws IOException{
-//		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		
 		if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
-//			FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + folderDate + ".png"));
 			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + elementKey + "-"/*+ "-" + property + "-" */+ remarks + " " + folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 		} else {
-//			FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  folderDate + ".png"));
 			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + property + "-" + remarks + " " +  folderDate).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 		}
 	}
 	
 	private static void takeScreenShotFailed(String keyword, String remarks) throws IOException{
-//		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		
-//		FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + remarks +  folderDate + ".png"));
 		Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 	}
 	
 	
 	private static void takeScreenShotModalPassed(String keyword, String elementKey, String property, String remarks) throws IOException{
-//		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		
 		if(keyword.contains("NOT")){
 			if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
-//				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + ft.format(new Date()) + ".png"));
 				Shutterbug.shootPage(driver).withName(keyword + "-" + elementKey + "-" /*+ "-" + property + "-" */+ remarks + " " + ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 			} else {
-//				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  ft.format(new Date()) + ".png"));
 				Shutterbug.shootPage(driver).withName(keyword + "-" + property + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator+ project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 			}
 		} else {
 			if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
-//				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + ft.format(new Date()) + ".png"));
 				Shutterbug.shootPage(driver).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + elementKey + "-" /*+ "-" + property + "-" */+ remarks + " " + ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 			} else {
-//				FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  ft.format(new Date()) + ".png"));
 				Shutterbug.shootPage(driver).monochrome(element).highlightWithText(element, Color.blue, 3, keyword,Color.blue, new Font("SansSerif", Font.BOLD, 16)).withName(keyword + "-" + property + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 			}
 		}
@@ -787,13 +730,10 @@ public static String elementIsVisible(String keyword, String elementKey, String 
 	}
 	
 	private static void takeScreenShotModalFailed(String keyword, String elementKey, String property, String remarks) throws IOException{
-//		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		
 		if(elementKey.equalsIgnoreCase("xpath") || elementKey.equalsIgnoreCase("cssSelector")){
-//			FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + elementKey /*+ "-" + property + "-" */+ remarks + ft.format(new Date()) + ".png"));
 			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + elementKey + "-" /*+ "-" + property + "-" */+ remarks + " " + ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + " Expected Results" + "\\");
 		} else {
-//			FileUtils.copyFile(scrFile, new File(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser + "\\" + keyword + "-" + property + "-" + remarks +  ft.format(new Date()) + ".png"));
 			Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS).withName(keyword + "-" + property + "-" + remarks + " " +  ft.format(new Date())).save(Constants.PATH_DOWNLOAD + File.separator + project + "-" + folderDate + "\\" + browser  + " Expected Results" + "\\");
 		}
 	}
